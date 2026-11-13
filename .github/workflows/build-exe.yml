@@ -1,7 +1,8 @@
 name: Compiler l'exécutable Windows
 on:
-  workflow_dispatch:
+  workflow_dispatch:          # bouton "Run workflow" manuel
   push:
+    branches: ["**"]          # démarre automatiquement à chaque push, sur n'importe quelle branche
     tags: ["v*"]
 
 jobs:
