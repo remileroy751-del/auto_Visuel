@@ -12,7 +12,8 @@ def _base_dir() -> Path:
 
 
 BASE = _base_dir()
-load_dotenv(BASE / ".env")
+for _n in (".env", "cles.env"):
+    load_dotenv(BASE / _n)
 
 DEFAULTS = {
     "langue": "français",
@@ -24,6 +25,8 @@ DEFAULTS = {
     "facebook": {"actif": True, "type": "video"},
     "tiktok": {"actif": True, "privacy_level": "SELF_ONLY"},
     "dossiers": {"sortie": "output", "musique": "music"},
+    "fond": {"ordre": ["pollinations", "gemini_image", "pexels"], "gemini_image_model": "gemini-2.5-flash-image",
+             "pollinations_model": "flux"},
 }
 
 

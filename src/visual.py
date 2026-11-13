@@ -84,7 +84,28 @@ def pick_palette(projet: dict) -> dict:
     return pal
 
 
-def _background(size, pal):
+def _cover(img, size):
+    W, H = size
+    r = max(W / img.width, H / img.height)
+    img = img.resize((int(img.width * r) + 1, int(img.height * r) + 1), Image.LANCZOS)
+    x, y = (img.width - W) // 2, (img.height - H) // 2
+    return img.crop((x, y, x + W, y + H))
+
+
+def _photo_background(size, pal, photo):
+    """Photo plein cadre + voile coloré dégradé pour garder le texte lisible."""
+    W, H = size
+    base = _cover(photo, size).convert("RGBA")
+    top = ImageColor.getrgb(pal["bg"][0]) + (150,)
+    bottom = ImageColor.getrgb(pal["bg"][1]) + (205,)
+    mask = Image.linear_gradient("L").resize((W, H))
+    veil = Image.composite(Image.new("RGBA", size, bottom), Image.new("RGBA", size, top), mask)
+    return Image.alpha_composite(base, veil)
+
+
+def _background(size, pal, photo=None):
+    if photo is not None:
+        return _photo_background(size, pal, photo)
     W, H = size
     mask = Image.linear_gradient("L").resize((W, H))
     img = Image.composite(Image.new("RGB", size, pal["bg"][1]), Image.new("RGB", size, pal["bg"][0]), mask).convert("RGBA")
@@ -98,7 +119,7 @@ def _background(size, pal):
     return Image.alpha_composite(img, deco.filter(ImageFilter.GaussianBlur(int(W * 0.08))))
 
 
-def build_visual(copy: dict, projet: dict, size, folder: Path, name: str, pal: dict) -> dict:
+def build_visual(copy: dict, projet: dict, size, folder: Path, name: str, pal: dict, photo=None) -> dict:
     """Produit le fond, 3 calques transparents (titre, sous-titre, bouton) et le visuel complet."""
     W, H = size
     folder.mkdir(parents=True, exist_ok=True)
@@ -106,7 +127,7 @@ def build_visual(copy: dict, projet: dict, size, folder: Path, name: str, pal: d
     acc, txt = pal["accent"], pal["text"]
     box_w = int(W * 0.86)
 
-    bg = _background(size, pal)
+    bg = _background(size, pal, photo)
     tag = projet.get("nom", "").strip()
     if tag:
         f = _font(fp, int(W * 0.04))

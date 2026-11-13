@@ -32,6 +32,15 @@ tiktok:
   # Ensuite : PUBLIC_TO_EVERYONE
   privacy_level: "SELF_ONLY"
 
+# Fonds des visuels : essayés dans cet ordre, dégradé de couleur si tout échoue
+#  pollinations : illustration IA liée au texte (clé POLLINATIONS_API_KEY)  <- 1er choix
+#  gemini_image : image générée par Gemini (même clé GEMINI_API_KEY)
+#  pexels       : vraies photos pro (clé gratuite PEXELS_API_KEY)
+fond:
+  ordre: ["pollinations", "gemini_image", "pexels"]
+  gemini_image_model: "gemini-2.5-flash-image"
+  pollinations_model: "flux"          # autres : gptimage, seedream... (selon ton compte)
+
 dossiers:
   sortie: "output"
   musique: "music"

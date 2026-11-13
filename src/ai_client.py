@@ -37,7 +37,9 @@ Réponds avec ce JSON exact :
  "subline": "bénéfice concret ou preuve, 14 mots maximum",
  "cta": "appel à l'action, 4 mots maximum",
  "caption": "légende du post, 2 à 4 phrases persuasives avec un appel à l'action",
- "hashtags": ["5 à 8 hashtags pertinents"]}}"""
+ "hashtags": ["5 à 8 hashtags pertinents"],
+ "image_query": "3 à 4 mots-clés EN ANGLAIS pour trouver une photo de fond professionnelle (ex: young entrepreneur laptop office)",
+ "image_prompt": "UNE phrase EN ANGLAIS décrivant une photo de fond cinématographique réaliste liée au produit, sans texte ni lettres"}}"""
 
 
 def _gemini(prompt: str, key: str, model: str) -> str:
@@ -82,7 +84,8 @@ def _offline(projet: dict, slogans: list[str]) -> dict:
     benefits = [x.strip() for x in re.split(r"[;\n|]", projet.get("benefices", "")) if x.strip()]
     return {"headline": a, "subline": random.choice(benefits) if benefits else b,
             "cta": projet.get("cta", "Je me lance maintenant"),
-            "caption": f"{a}. {b}", "hashtags": [], "source": "hors-ligne"}
+            "caption": f"{a}. {b}", "hashtags": [], "source": "hors-ligne",
+            "image_query": projet.get("fond_mots_cles", "business success entrepreneur laptop")}
 
 
 def generate_copy(cfg: dict, projet: dict, slogans: list[str], history: list[str]) -> dict:
