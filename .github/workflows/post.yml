@@ -1,0 +1,44 @@
+name: Publication automatique
+# Heures en UTC (Lomé = UTC+0). Le cron GitHub peut avoir quelques minutes de retard.
+on:
+  schedule:
+    - cron: "0 8 * * *"     # matin
+    - cron: "30 19 * * *"   # soir
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Générer et publier
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+        run: python main.py run
+      - name: Sauvegarder l'historique (compteur quotidien)
+        run: |
+          git config user.name "autovisuel-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/state.json || true
+          git diff --cached --quiet || (git commit -m "maj historique" && git push)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sorties
+          path: output/
+          retention-days: 7

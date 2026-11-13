@@ -1,0 +1,26 @@
+name: Compiler l'exécutable Windows
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt pyinstaller
+      - run: pyinstaller --onefile --name AutoVisuel --collect-all imageio_ffmpeg --collect-data tzdata main.py
+      - name: Préparer le dossier de livraison
+        shell: pwsh
+        run: |
+          python create_template.py
+          Copy-Item config.yaml, .env.example, info.xlsx dist/
+          New-Item -ItemType Directory -Force dist/music, dist/fonts | Out-Null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AutoVisuel-windows
+          path: dist/
