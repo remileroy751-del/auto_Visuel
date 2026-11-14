@@ -1,0 +1,13 @@
+{
+ "posts": [
+  {
+   "date": "2026-11-14",
+   "time": "00:26",
+   "headline": "Ils ont commencé comme toi. Regarde où ils en sont.",
+   "results": {
+    "facebook": "erreur: FB_PAGE_ID / FB_PAGE_TOKEN manquants dans .env",
+    "tiktok": "erreur: Aucun token TikTok (TIKTOK_ACCESS_TOKEN ou TIKTOK_REFRESH_TOKEN + clés) | copie manuelle: /home/runner/work/auto_Visuel/auto_Visuel/output/tiktok_a_poster/20261114_002643.mp4"
+   }
+  }
+ ]
+}
