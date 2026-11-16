@@ -35,6 +35,15 @@
     "facebook": "erreur: FB_PAGE_ID / FB_PAGE_TOKEN manquants dans .env",
     "tiktok": "erreur: Aucun token TikTok (TIKTOK_ACCESS_TOKEN ou TIKTOK_REFRESH_TOKEN + clés) | copie manuelle: /home/runner/work/auto_Visuel/auto_Visuel/output/tiktok_a_poster/20261115_232921.mp4"
    }
+  },
+  {
+   "date": "2026-11-16",
+   "time": "17:54",
+   "headline": "Ton futur revenu t'attend de l'autre côté de cette page.",
+   "results": {
+    "facebook": "erreur: FB_PAGE_ID / FB_PAGE_TOKEN manquants dans .env",
+    "tiktok": "erreur: Aucun token TikTok (TIKTOK_ACCESS_TOKEN ou TIKTOK_REFRESH_TOKEN + clés) | copie manuelle: /home/runner/work/auto_Visuel/auto_Visuel/output/tiktok_a_poster/20261116_175339.mp4"
+   }
   }
  ]
 }
