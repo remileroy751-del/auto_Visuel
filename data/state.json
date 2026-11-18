@@ -71,6 +71,15 @@
     "facebook": "erreur: FB_PAGE_ID / FB_PAGE_TOKEN manquants dans .env",
     "tiktok": "erreur: Aucun token TikTok (TIKTOK_ACCESS_TOKEN ou TIKTOK_REFRESH_TOKEN + clés) | copie manuelle: /home/runner/work/auto_Visuel/auto_Visuel/output/tiktok_a_poster/20261118_014941.mp4"
    }
+  },
+  {
+   "date": "2026-11-18",
+   "time": "16:55",
+   "headline": "Arrête de rêver, commence à encaisser.",
+   "results": {
+    "facebook": "erreur: FB_PAGE_ID / FB_PAGE_TOKEN manquants dans .env",
+    "tiktok": "erreur: Aucun token TikTok (TIKTOK_ACCESS_TOKEN ou TIKTOK_REFRESH_TOKEN + clés) | copie manuelle: /home/runner/work/auto_Visuel/auto_Visuel/output/tiktok_a_poster/20261118_165528.mp4"
+   }
   }
  ]
 }
